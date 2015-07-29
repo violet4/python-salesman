@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from argparser  import parser
-from parse      import read_tsp_file
+from tspparse   import read_tsp_file
 from algorithms import ( calc_nearest_neighbor_tour
                        , calc_in_order_tour
                        , calc_furthest_neighbor_tour)

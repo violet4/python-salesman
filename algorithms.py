@@ -1,6 +1,6 @@
 from collections import deque
 from city        import distance, GeoCity, Euc_2D, GeoCoord
-from parse       import read_tsp_file
+from tspparse    import read_tsp_file
 from numpy       import array
 
 def calc_distance(tsp, city1_index, city2_index):
