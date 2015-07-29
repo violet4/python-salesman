@@ -6,6 +6,43 @@ the length of tours and paths. In addition, two simple and similar
 heuristics have been implemented: the nearest neighbor algorithm and
 the furthest insertion algorithm.
 
+* Organization
+
+Work is organized into five modules:
+
+1. ~parse.py~. Parses ~.tsp~ files of type ~TSP~. Currently, this
+   parser works only on the subset of ~.tsp~ files included in the
+   directory ~./tspfiles~, and has not been tested on other TSP instances in
+   the TSPLIB library. The final destination for all parsed
+   information is a ~dict~ object whose keys are ~TSPLIB 95~
+   keywords. The cities are stored in the dictionary under the key
+   ``~cities~.''
+
+2. ~city.py~. Datatypes for geographical coordinates
+   (class ~GeoCoord~), cities represented as geographical points
+   (class ~GeoCity~), and cities represented as Euclidean coordinates
+   on the plane (class ~Euc_2D~). This file also contains
+   the ~distance~ function, which operates on objects of
+   classes ~Euc_2D~ and ~GeoCity~.
+   
+3. ~algorithms.py~. Simple algorithms and heuristics for calculating
+   tours. The function ~calc_in_order_tour~ calculates the length of
+   the tour ~[1,2,3,...,n,1]~ for a TSP problem of dimension ~n~. Also
+   implemented in this module are the nearest neighbor and furthest
+   insertion heuristics, respectively
+   named ~calc_nearest_neighbor_tour~
+   and ~calc_furthest_neighbor_tour~.
+
+4. ~argparser.py~. Parses command line arguments to ~main.py~ with
+   the ~argparse~ module. Command line arguments include ~-f~ if the
+   furthest insertion tour is requested, ~-n~ if the nearest neighbor
+   tour is requested, and ~-i~ if the in-order tour length is
+   requested.
+   
+5. ~main.py~. Iterate through directories and files in order to find
+   the ~.tsp~ files and print the information requested through the
+   command line arguments.
+
 * Sample Invocation
 
 The file ~main.py~ is intended for use as a command-line program. To
@@ -137,6 +174,7 @@ Calculation of Euclidean 2-D distances does not match up with other
 implementations of TSP programs. The culprit is most likely the
 rounding function used in the ~euc_2d_distance~ function found in
 the ~city~ module. As per the TSPLIB '95 documentation, distances
-should be "round[ed] to the nearest integer (in most cases)" (6). It
+should be ``round[ed] to the nearest integer (in most cases)''
+ (6). It
 is strongly implied by the documentation that rounding convention used
 should exactly replicate the C ~nint~ function.
