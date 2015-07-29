@@ -174,7 +174,6 @@ Calculation of Euclidean 2-D distances does not match up with other
 implementations of TSP programs. The culprit is most likely the
 rounding function used in the ~euc_2d_distance~ function found in
 the ~city~ module. As per the TSPLIB '95 documentation, distances
-should be ``round[ed] to the nearest integer (in most cases)''
- (6). It
+should be ``round[ed] to the nearest integer (in most cases)'' (6). It
 is strongly implied by the documentation that rounding convention used
 should exactly replicate the C ~nint~ function.
