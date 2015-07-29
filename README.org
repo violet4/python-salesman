@@ -6,7 +6,7 @@ the length of tours and paths. In addition, two simple and similar
 heuristics have been implemented: the nearest neighbor algorithm and
 the furthest insertion algorithm.
 
-* Organization
+* Module Organization
 
 Work is organized into five modules:
 
@@ -174,6 +174,40 @@ Calculation of Euclidean 2-D distances does not match up with other
 implementations of TSP programs. The culprit is most likely the
 rounding function used in the ~euc_2d_distance~ function found in
 the ~city~ module. As per the TSPLIB '95 documentation, distances
-should be ``round[ed] to the nearest integer (in most cases)'' (6). It
-is strongly implied by the documentation that rounding convention used
-should exactly replicate the C ~nint~ function.
+should be ``round[ed] to the nearest integer (in most cases)'' (6). In
+my reading of the TSPLIB '95 documentation, it is implied that the
+rounding convention used should exactly replicate the C-language ~nint~
+function.
+
+Nevertheless, getting Euclidean distances to match up with a previous
+implementation I wrote in Haskell has proven difficult. Both the
+Haskell ~round~ function and Numpy's ~around~ function should
+theoretically have the same behavior (that is, round as you learned in
+grade school, except for floats falling exactly equidistant from two
+integers -- in that case, round to the nearest even integer). However,
+rounding errors persist in one or both of the implementations. The
+effect is more pronounced on TSPs with large dimension.
+
+For example, consider the following table of in-order tour lengths calculated by this Python implementation and a previous Haskell implementation:
+| Problem |  Python | Haskell | Percent diff. (rel. to Python) |
+|---------+---------+---------+--------------------------------|
+| /       |       < |       < | <                              |
+| ali535  | 3369702 | 3370175 |                 -1.40368495e-4 |
+| gr666   |  423633 |  423529 |                  2.45495511e-4 |
+#+TBLFM: $4=($2-$3)/$2
+
+This Python implementation both overshoots and undershoots the Haskell
+implementation's calculations. As usual, the discrepancy between the
+two version probably originates with the particular choices each
+language implementation makes with floating point numbers. Making
+these TSP implementations match would require further study into each
+language's choices for floating point representations, but this
+project is mostly a toy, so that endeavor is ill-advised.
+
+* Possible Improvements
+
+- implement the Lin-Kernighan algorithm for improving tours through
+  programmatic permutation of city sequences
+
+- test and patch the parser so that it operates on the full range of
+  TSP instances provided by TSPLIB '95
