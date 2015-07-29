@@ -198,11 +198,11 @@ For example, consider the following table of in-order tour lengths calculated by
 
 This Python implementation both overshoots and undershoots the Haskell
 implementation's calculations. As usual, the discrepancy between the
-two version probably originates with the particular choices each
-language implementation makes with floating point numbers. Making
-these TSP implementations match would require further study into each
-language's choices for floating point representations, but this
-project is mostly a toy, so that endeavor is ill-advised.
+two versions probably originates with the particular choices each
+language implementation makes with respect to floating point
+numbers. Making these TSP implementations match would require further
+study into each language's choices for floating point representations,
+but this project is mostly a toy, so that endeavor is ill-advised.
 
 * Possible Improvements
 
