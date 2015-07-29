@@ -10,7 +10,7 @@ the furthest insertion algorithm.
 
 Work is organized into five modules:
 
-1.  `parse.py`. Parses `.tsp` files of type `TSP`. Currently, this
+1.  `tspparse.py`. Parses `.tsp` files of type `TSP`. Currently, this
     parser works only on the subset of `.tsp` files included in the
     directory `./tspfiles`, and has not been tested on other TSP instances in
     the TSPLIB library. The final destination for all parsed

@@ -1,8 +1,8 @@
 import argparse
 
 parser = argparse.ArgumentParser(
-    description = "Parse TSP files and calculate paths using simple "
-                  "algorithms.")
+      description = "Parse TSP files and calculate paths using simple "
+                    "algorithms.")
 
 parser.add_argument (
       "-n"
@@ -44,5 +44,6 @@ parser.add_argument (
       "tsp_queue"
     , nargs   = "+"
     , metavar = "PATH"
-    , help    = "Path to directory or .tsp file. If PATH is a directory, run on all .tsp files in the directory."
+    , help    = "Path to directory or .tsp file. If PATH is a directory, run "
+                "on all .tsp files in the directory."
     )
