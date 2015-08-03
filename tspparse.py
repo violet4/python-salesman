@@ -9,6 +9,9 @@ def minimal_tsp():
            , "CITIES"           : []}
 
 def scan_keywords(tsp,tspfile):
+    """
+    missing documentation
+    """
     for line in tspfile:
         words   = deque(line.split())
         keyword = words.popleft().strip(": ")
@@ -27,6 +30,7 @@ def scan_keywords(tsp,tspfile):
             break
 
 def read_int(words):
+    ## not enough functionality to be a self-contained method
     return int(words.popleft())
 
 def read_euc_2d_city(words):
@@ -35,8 +39,7 @@ def read_euc_2d_city(words):
     return Euc_2D(x, y)
 
 def read_geo_coord(words):
-    [degrees, minutes] = map(int, words.popleft().split("."))
-    return GeoCoord(degrees, minutes)
+    return GeoCoord(*map(int, words.popleft().split(".")))
 
 def read_geo_city(words):
     lat = read_geo_coord(words)
@@ -44,14 +47,14 @@ def read_geo_city(words):
     return GeoCity(lat, lon)
 
 def read_numbered_geo_city_line(desired_number, words):
-    city_number = read_int(words)
+    city_number = int(words.popleft())
     if city_number == desired_number:
         return read_geo_city(words)
     else:
         print("Missing or mislabeld city: expected {0}".format(desired_number))
 
 def read_numbered_euc_2d_city_line(desired_number, words):
-    city_number = read_int(words)
+    city_number = int(words.popleft())
     if city_number == desired_number:
         return read_euc_2d_city(words)
     else:
@@ -69,9 +72,8 @@ def read_cities(tsp,tspfile):
             print("Unsupported coordinate type: " + tsp["EDGE_WEIGHT_TYPE"])
             
 def read_tsp_file(path):
-    tspfile = open(path,'r')
-    tsp     = minimal_tsp()
-    scan_keywords(tsp,tspfile)
-    read_cities(tsp,tspfile)
-    tspfile.close()
+    with open(path,'r') as tspfile:
+        tsp = minimal_tsp()
+        scan_keywords(tsp,tspfile)
+        read_cities(tsp,tspfile)
     return tsp

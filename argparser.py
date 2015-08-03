@@ -43,6 +43,7 @@ parser.add_argument (
 parser.add_argument (
       "tsp_queue"
     , nargs   = "+"
+    , type    = str
     , metavar = "PATH"
     , help    = "Path to directory or .tsp file. If PATH is a directory, run "
                 "on all .tsp files in the directory."

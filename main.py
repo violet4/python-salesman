@@ -17,17 +17,17 @@ def glean_tsp_files(path_arg_list):
             for filepath in iglob(join(path_arg,"*.tsp")):
                 yield filepath
 
-        elif isfile(path_arg) & str(path_arg).endswith(".tsp"):
-            yield path_arg
-
-        elif isfile(path_arg) & (not path_arg.endswith(".tsp")):
-            print("Can't open file ``{0}'': not a .tsp file".format(path_arg))
+        elif isfile(path_arg):
+            if path_arg.endswith(".tsp"):
+                yield path_arg
+            else:
+                print("Can't open file ``{0}'': not a .tsp file".format(path_arg))
 
         elif exists(path_arg):
-            print("Path {0} is neither a file nor a directory".format(path_arg))
+            print("Path '{0}' is neither a file nor a directory".format(path_arg))
 
         else:
-            print("Path {0} does not exist".format(path_arg))
+            print("Path '{0}' does not exist".format(path_arg))
 
 def print_results_from_tsp_path(call_args, tsp_path):
     tsp = read_tsp_file(tsp_path)
@@ -46,7 +46,12 @@ def print_results_from_tsp_path(call_args, tsp_path):
         print("FURTHEST NEIGHBOR LENGTH: {}"
              . format(calc_furthest_neighbor_tour(tsp)))
 
-    print("")
+    print("") # print() is equivalent to print("")
+    ## print prints a newline at the end because the default
+    ## kwarg end='\n'. also notice that separator sep=' '
+
+    ## explicitly deleting objects to free up memory? see
+    ## https://stackoverflow.com/a/12417671/2821804
     del(tsp)
 
 def main():
